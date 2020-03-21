@@ -4,7 +4,7 @@
 # Thanks to https://github.com/sagarkarira/coronavirus-tracker-cli for showing the curl commands they use.
 
 # Rank │ World                  │ Total Cases  │ New Cases ▲ │ Total Deaths │ New Deaths ▲ │ Recovered │ Active  │ Critical │ Cases / 1M pop
-CONTENT=/tmp/.corona
+CONTENT=$HOME/.corona-stats
 
 update () {
 	[ "$(stat -c %y $CONTENT 2>/dev/null | awk -F'[;:]' '{print $1":"$2}')" != "$(date '+%Y-%m-%d %H:%M')" ] && 
