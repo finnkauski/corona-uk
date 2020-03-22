@@ -11,16 +11,37 @@ update () {
 		curl -s -o $CONTENT https://corona-stats.online?source=2 > $CONTENT
 }
 
+get () {
+	update 
+	grep $1 $CONTENT | 
+		sed "s/\s*//gi ; s/▲//g ; s/║//g ; s/│/;/g" |
+		awk -F';' '{print "🤒 " $3 " (" $4 " new) 💀 " $5 " (" $6 " new)"}'	
+}
+
+help () {
+	cat << EOF
+written by finnkauski
+
+corona 
+	full   - shows full country table
+	search - greps country name and finds the stats (case sensative)
+	help   - prints help
+	*      - shows stats for UK
+
+EOF
+}
+
+
 case $1 in 
 	full) 
 		update
 		cat $CONTENT;;
+	search)
+		get $2;;
+	help) 
+		help;;
 	*) 
-		update 
-		grep "UK" $CONTENT | 
-			sed "s/\s*//gi ; s/▲//g ; s/║//g ; s/│/;/g" |
-			awk -F';' '{print "🤒 " $3 " (" $4 " new) 💀 " $5 " (" $6 " new)"}'	
-		;; 
+		get "UK";; 
 esac
 
 
