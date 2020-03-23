@@ -14,7 +14,7 @@ update () {
 get () {
 	update 
 	grep $1 $CONTENT | 
-		sed "s/\s*//gi ; s/▲//g ; s/║//g ; s/│/;/g" |
+		sed "s/\s*//g ; s/▲//g ; s/║//g ; s/│/;/g" |
 		awk -F';' '{print "🤒 " $3 " (" $4 " new) 💀 " $5 " (" $6 " new)"}'	
 }
 
